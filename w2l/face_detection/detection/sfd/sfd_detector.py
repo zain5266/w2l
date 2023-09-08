@@ -1,5 +1,6 @@
 import os
 import cv2
+import requests
 from torch.utils.model_zoo import load_url
 
 from ..core import FaceDetector
@@ -8,18 +9,26 @@ from .net_s3fd import s3fd
 from .bbox import *
 from .detect import *
 
-models_urls = {
-    's3fd': 'https://www.adrianbulat.com/downloads/python-fan/s3fd-619a316812.pth',
-}
+model_url ='https://www.adrianbulat.com/downloads/python-fan/s3fd-619a316812.pth',
+
 
 
 class SFDDetector(FaceDetector):
-    def __init__(self, device, path_to_detector=os.path.join(os.path.dirname(os.path.abspath(__file__)), 's3fd.pth'), verbose=False):
+    def __init__(self, device, path_to_detector=os.path.join(os.path.dirname(os.path.abspath(__file__)), 's3fd/s3fd.pth'), verbose=False):
         super(SFDDetector, self).__init__(device, verbose)
 
         # Initialise the face detector
         if not os.path.isfile(path_to_detector):
-            model_weights = load_url(models_urls['s3fd'])
+            response=requests.get(model_url)
+            if response.status_code==200:
+                print("Downloading s3fd model")
+                with open("s3fd/s3fd.pth","wb") as file:
+                    file.write(response.content)
+                model_weights=torch.load("s3fd/s3fd.pth")
+            else:
+                print("s3fd model is not found to download")
+
+
         else:
             model_weights = torch.load(path_to_detector)
 

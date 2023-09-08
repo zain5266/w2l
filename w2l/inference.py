@@ -1,10 +1,12 @@
 
 import numpy as np
-import cv2, os, audio
+import cv2, os
+from . import audio
 import requests
 from tqdm import tqdm
-import torch, face_detection
-from models import Wav2Lip
+import torch
+from . import face_detection
+from .models import Wav2Lip
 from moviepy.editor import VideoFileClip, AudioFileClip
 
 
@@ -172,6 +174,10 @@ def generate_video(face_link,audio_link,checkpoint_path):
 			extension=content_type.split("/")[-1]
 		else:
 			extension='jpg'
+		print(os.getcwd())
+		f=os.path.join(os.getcwd(),f"sample_data/face_image.{extension}")
+		print(f)
+		print(os.path.isfile(f))
 		video_file_name=f"sample_data/face_image.{extension}"
 		with open (video_file_name,'wb') as f:
 			f.write(image_data)
