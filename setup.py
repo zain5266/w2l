@@ -1,9 +1,9 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name="w2l",
     version=0.1,
-    packages=["w2l"],
+    packages=find_packages(),
     install_requires=[
         "librosa==0.10.1",
         "numpy==1.24.4",
