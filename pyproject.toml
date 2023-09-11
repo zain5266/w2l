@@ -5,10 +5,7 @@ description = "wav2lip"
 authors = ["Your Name <you@example.com>"]
 license = "n"
 readme = "README.md"
-packages = [
-    { include = "w2l" }
 
-]
 
 [tool.poetry.dependencies]
 python = ">=3.8"
@@ -29,5 +26,5 @@ build-backend = "poetry.core.masonry.api"
 Homepage = "https://github.com/zain5266/w2l"
  
 [project.scripts]
-inference = "src.inference:generate_video"
+inference = "w2l.inference:generate_video"
 
