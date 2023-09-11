@@ -6,8 +6,8 @@ authors = ["Your Name <you@example.com>"]
 license = "n"
 readme = "README.md"
 packages = [
-    { include = "w2l" },
-    { include = "w2l", from="." }
+    { include = "w2l/src" },
+    { include = "w2l/src", from="." }
 
 ]
 
