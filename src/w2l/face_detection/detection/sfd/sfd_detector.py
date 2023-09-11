@@ -31,7 +31,6 @@ class SFDDetector(FaceDetector):
             else:
                 print("s3fd model is not found to download")
         else:
-            print("here2")
             model_weights = torch.load(path_to_detector)
 
         self.face_detector = s3fd()

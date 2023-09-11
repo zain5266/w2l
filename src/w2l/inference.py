@@ -246,16 +246,11 @@ def generate_video(face_link,audio_link,checkpoint_path):
 	print("Length of mel chunks: {}".format(len(mel_chunks)))
 
 	full_frames = full_frames[:len(mel_chunks)]
-	print("here3")
 	batch_size = config.wav2lip_batch_size
-	print("here4")
 	gen = datagen(full_frames.copy(), mel_chunks)
-	print("here5")
 	for i, (img_batch, mel_batch, frames, coords) in enumerate(tqdm(gen,
 											total=int(np.ceil(float(len(mel_chunks))/batch_size)))):
-		print("here6")
 		if i == 0:
-			print("here7")
 			model = load_model(checkpoint_path)
 			print ("Model loaded")
 
