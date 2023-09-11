@@ -9,27 +9,29 @@ from .net_s3fd import s3fd
 from .bbox import *
 from .detect import *
 
-model_url ='https://www.adrianbulat.com/downloads/python-fan/s3fd-619a316812.pth',
 
 
 
 class SFDDetector(FaceDetector):
-    def __init__(self, device, path_to_detector=os.path.join(os.path.dirname(os.path.abspath(__file__)), 's3fd/s3fd.pth'), verbose=False):
+    def __init__(self, device, path_to_detector=os.path.join(os.getcwd(), 's3fd/s3fd.pth'), verbose=False):
         super(SFDDetector, self).__init__(device, verbose)
 
         # Initialise the face detector
         if not os.path.isfile(path_to_detector):
-            response=requests.get(model_url)
-            if response.status_code==200:
+             
+            if not os.path.isdir(os.path.join(os.getcwd(), 's3fd')):
+                os.makedirs(os.path.join(os.getcwd(), 's3fd'))
+            model_url ='https://www.adrianbulat.com/downloads/python-fan/s3fd-619a316812.pth'
+            response = requests.get(model_url)
+            if response.status_code == 200:
                 print("Downloading s3fd model")
-                with open("s3fd/s3fd.pth","wb") as file:
+                with open(path_to_detector, "wb") as file:
                     file.write(response.content)
-                model_weights=torch.load("s3fd/s3fd.pth")
+                model_weights = torch.load(path_to_detector)
             else:
                 print("s3fd model is not found to download")
-
-
         else:
+            print("here2")
             model_weights = torch.load(path_to_detector)
 
         self.face_detector = s3fd()

@@ -14,7 +14,6 @@ class LipSyncConfig:
     def __init__(self):
         self.face = None
         self.audio = None
-        self.outfile = 'results/result_voice.mp4'
         self.static = False
         self.fps = 25.0
         self.pads = [0, 10, 0, 0]
@@ -156,7 +155,10 @@ def load_model(path):
 	return model.eval()
 
 def generate_video(face_link,audio_link,checkpoint_path):
-
+	if not os.path.isdir("temp"):
+		os.makedirs("temp")
+	if not os.path.isdir("results"):
+		os.makedirs("results")
 	global config
 	config = LipSyncConfig()
 	# "checkpoints/wav2lip_gan.pth"
@@ -244,13 +246,16 @@ def generate_video(face_link,audio_link,checkpoint_path):
 	print("Length of mel chunks: {}".format(len(mel_chunks)))
 
 	full_frames = full_frames[:len(mel_chunks)]
-
+	print("here3")
 	batch_size = config.wav2lip_batch_size
+	print("here4")
 	gen = datagen(full_frames.copy(), mel_chunks)
-
+	print("here5")
 	for i, (img_batch, mel_batch, frames, coords) in enumerate(tqdm(gen,
 											total=int(np.ceil(float(len(mel_chunks))/batch_size)))):
+		print("here6")
 		if i == 0:
+			print("here7")
 			model = load_model(checkpoint_path)
 			print ("Model loaded")
 
@@ -276,7 +281,8 @@ def generate_video(face_link,audio_link,checkpoint_path):
 	out.release()
 
 	result_video_path = 'temp/result.avi'
-	output_video_path = config.outfile
+	
+	output_video_path = 'results/result_voice.mp4'
 
 	# Load the audio and video clips
 	audio_clip = AudioFileClip(config.audio)
