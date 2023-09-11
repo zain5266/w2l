@@ -175,6 +175,10 @@ def generate_video(face_link,audio_link,checkpoint_path):
 		else:
 			extension='jpg'
 		print(os.getcwd())
+		if os.path.isdir(os.path.join(os.getcwd(),f"sample_data")):
+			pass
+		else:
+			os.makedirs(os.path.join(os.getcwd(),f"sample_data"))
 		f=os.path.join(os.getcwd(),f"sample_data/face_image.{extension}")
 		print(f)
 		print(os.path.isfile(f))
