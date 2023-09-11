@@ -1,6 +1,7 @@
 
 import numpy as np
-import cv2, os
+import cv2
+import os
 from . import audio
 import requests
 from tqdm import tqdm
@@ -8,6 +9,7 @@ import torch
 from . import face_detection
 from .models import Wav2Lip
 from moviepy.editor import VideoFileClip, AudioFileClip
+from moviepy.editor import AudioFileClip
 
 
 class LipSyncConfig:
