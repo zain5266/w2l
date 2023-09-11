@@ -1,7 +1,0 @@
-README.md
-setup.py
-w2l.egg-info/PKG-INFO
-w2l.egg-info/SOURCES.txt
-w2l.egg-info/dependency_links.txt
-w2l.egg-info/requires.txt
-w2l.egg-info/top_level.txt
