@@ -170,49 +170,51 @@ def generate_video(face_link,audio_link,checkpoint_path):
 
 
 
-	if "http" in face_link:
-		response = requests.get(face_link)
-		image_data = response.content
-		content_type = response.headers.get('content-type')
-		if content_type:
-			extension=content_type.split("/")[-1]
-		else:
-			extension='jpg'
-		print(os.getcwd())
-		if os.path.isdir(os.path.join(os.getcwd(),f"sample_data")):
-			pass
-		else:
-			os.makedirs(os.path.join(os.getcwd(),f"sample_data"))
-		f=os.path.join(os.getcwd(),f"sample_data/face_image.{extension}")
-		print(f)
-		print(os.path.isfile(f))
-		video_file_name=f"sample_data/face_image.{extension}"
-		with open (video_file_name,'wb') as f:
-			f.write(image_data)
-		print("FILENAME=",video_file_name)
+	# if "http" in face_link:
+	# 	response = requests.get(face_link)
+	# 	image_data = response.content
+	# 	content_type = response.headers.get('content-type')
+	# 	if content_type:
+	# 		extension=content_type.split("/")[-1]
+	# 	else:
+	# 		extension='jpg'
+	# 	print(os.getcwd())
+	# 	if os.path.isdir(os.path.join(os.getcwd(),f"sample_data")):
+	# 		pass
+	# 	else:
+	# 		os.makedirs(os.path.join(os.getcwd(),f"sample_data"))
+	# 	f=os.path.join(os.getcwd(),f"sample_data/face_image.{extension}")
+	# 	print(f)
+	# 	print(os.path.isfile(f))
+	# 	video_file_name=f"sample_data/face_image.{extension}"
+	# 	with open (video_file_name,'wb') as f:
+	# 		f.write(image_data)
+	# 	print("FILENAME=",video_file_name)
 
-	if "http" in audio_link:
-		response=requests.get(audio_link)
-		audio_data=response.content
-		content_type=response.headers.get('content-type')
-		if content_type:
-			extension=content_type.split("/")[-1]
-		else:
-			extension='mp3'
-		audio_file_name=f"sample_data/audio.{extension}"
-		with open(audio_file_name,'wb') as f:
-			f.write(audio_data)
+	# if "http" in audio_link:
+	# 	response=requests.get(audio_link)
+	# 	audio_data=response.content
+	# 	content_type=response.headers.get('content-type')
+	# 	if content_type:
+	# 		extension=content_type.split("/")[-1]
+	# 	else:
+	# 		extension='mp3'
+	# 	audio_file_name=f"sample_data/audio.{extension}"
+	# 	with open(audio_file_name,'wb') as f:
+	# 		f.write(audio_data)
 
-	config.face=video_file_name
-	config.audio=audio_file_name
+	# config.face=video_file_name
+	# config.audio=audio_file_name
+	config.face=face_link
+	config.audio=audio_link
+
 	if not os.path.isfile(config.face):
 		raise ValueError('--face argument must be a valid path to video/image file')
 
 	elif config.face.split('.')[1] in ['jpg', 'png', 'jpeg']:
 		full_frames = [cv2.imread(config.face)]
 		fps = config.fps
-		print("config=",config)
-		print("")
+	print("config.face=",config.face)
 
 	# if provided file is not .wav
 	if not config.audio.endswith('.wav'):

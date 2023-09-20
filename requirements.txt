@@ -1,4 +1,5 @@
 git+https://github.com/zain5266/w2l.git
+git+https://github.com/zain5266/facer.git
 librosa==0.10.1
 numpy==1.24.4
 opencv-contrib-python==4.8.0.76
@@ -8,3 +9,5 @@ torchvision==0.15.2
 tqdm==4.66.1
 numba==0.57.1
 moviepy==1.0.3
+ffmpeg-python
+boto3
